@@ -1,40 +1,19 @@
-.App {
-  text-align: center;
+:root {
+  --main-color: #f87e1a;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
 }
 
 /* ---------------------------header starts here--------------------------------- */
@@ -125,4 +104,45 @@
 .signup-btn:hover,
 .submit-btn:hover {
   background-color: #9cd326;
+}
+/* --------------------------------- homepage ends here-------------------------------- */
+
+/* 3. --------------------------------- sign up and login page starts here-------------------------------- */
+.signup,
+.history {
+  height: 100vh;
+}
+
+.signup-form {
+  width: 300px;
+  margin: 20px 0 90px 0;
+}
+
+.signup-form label {
+  text-align: left;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.signup-form input {
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 10px;
+  border-width: 1px;
+}
+
+.btn-div {
+  margin: 18px auto;
+}
+
+.signup-btn {
+  width: 300px;
+  height: 46px;
+}
+
+.link-btn {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.err-message {
+  color: red;
 }
