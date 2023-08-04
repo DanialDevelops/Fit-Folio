@@ -107,7 +107,7 @@ code {
 }
 /* --------------------------------- homepage ends here-------------------------------- */
 
-/* 3. --------------------------------- sign up and login page starts here-------------------------------- */
+/* --------------------------------- sign up and login page starts here-------------------------------- */
 .signup,
 .history {
   height: 100vh;
@@ -146,3 +146,5 @@ code {
 .err-message {
   color: red;
 }
+
+/* --------------------------------- sign up and login page starts here-------------------------------- */

@@ -4,38 +4,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import Home from "./pages/Home";
-import Exercises from "./components/exercise.js";
-import LoginSignup from "./pages/login.js";
-
-function App() {
-  const [currentPage, setCurrentPage] = useState("exercises"); // 'exercises' or 'login'
-
-  return (
-    <div>
-      <header>
-        <h1>Fit Folio</h1>
-      </header>
-
-      <nav>
-        <ul>
-          <li>
-            <button onClick={() => setCurrentPage("exercises")}>
-              Exercises
-            </button>
-          </li>
-          <li>
-            <button onClick={() => setCurrentPage("login")}>
-              Login/Signup
-            </button>
-          </li>
-        </ul>
-      </nav>
-
-      {currentPage === "exercises" && <Exercises />}
-      {currentPage === "login" && <LoginSignup />}
-    </div>
-  );
-}
+import Exercise from "./components/exercise";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 
 function App() {
   return (
