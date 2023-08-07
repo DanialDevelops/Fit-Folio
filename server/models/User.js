@@ -26,10 +26,10 @@ const userSchema = new Schema(
         ref: "User",
       },
     ],
-    thoughts: [
+    sessions: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Thought",
+        ref: "Session",
       },
     ],
   },
