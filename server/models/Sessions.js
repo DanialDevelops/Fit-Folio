@@ -1,5 +1,5 @@
 const { Schema, model } = require("mongoose");
-const resistanceSchema = require("./Resistance");
+const workoutSchema = require("./Workout");
 
 const sessionsSchema = new Schema(
   {
@@ -18,7 +18,7 @@ const sessionsSchema = new Schema(
       type: String,
       required: true,
     },
-    resistance: [resistanceSchema],
+    workout: [workoutSchema],
   },
   {
     toJSON: {
@@ -29,8 +29,8 @@ const sessionsSchema = new Schema(
   }
 );
 
-sessionsSchema.virtual("resistanceCount").get(function () {
-  return this.resistance.length;
+sessionsSchema.virtual("workoutCount").get(function () {
+  return this.workout.length;
 });
 
 const Sessions = model("Sessions", sessionsSchema);

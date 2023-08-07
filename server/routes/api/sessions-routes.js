@@ -6,7 +6,7 @@ const {
   createSession,
   deleteSession,
   updateSessionById,
-  createReaction,
+  createWorkout,
   deleteWorkout,
 } = require("../../controllers/sessions-controller");
 
@@ -21,9 +21,9 @@ router
   .delete(deleteSession);
 
 // Route for creating reaction
-router.route("/:sessionId/resistance").post(createReaction);
+router.route("/:sessionId/workout").post(createWorkout);
 
 // Route to delete reaction
-router.route("/:sessionId/resistance/:resistanceId").delete(deleteWorkout);
+router.route("/:sessionId/workout/:workoutId").delete(deleteWorkout);
 
 module.exports = router;

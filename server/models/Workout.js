@@ -1,11 +1,11 @@
 const { Schema, Types } = require("mongoose");
-const resistanceSchema = new Schema(
+const workoutSchema = new Schema(
   {
-    resistanceId: {
+    workoutId: {
       type: Schema.Types.ObjectId,
       default: () => new Types.ObjectId(),
     },
-    resistanceBody: {
+    workoutBody: {
       type: String,
       required: true,
       maxLength: 280,
@@ -28,4 +28,4 @@ const resistanceSchema = new Schema(
   }
 );
 
-module.exports = resistanceSchema;
+module.exports = workoutSchema;

@@ -57,7 +57,7 @@ const SessionsController = {
         { new: true }
       );
       if (!sessions) {
-        res.status(400).json({ message: "Thought not found" });
+        res.status(400).json({ message: "Session not found" });
       } else {
         res.status(200).json(sessions);
       }
@@ -67,15 +67,15 @@ const SessionsController = {
   },
 
   // Creates a new reaction for a thought
-  async createReaction(req, res) {
+  async createWorkout(req, res) {
     try {
       const sessions = await Sessions.findOneAndUpdate(
         { _id: req.params.sessionId },
-        { $addToSet: { resistance: req.body } },
+        { $addToSet: { workout: req.body } },
         { runValidators: true, new: true }
       );
       if (!sessions) {
-        res.status(400).json({ message: "Session not found" });
+        res.status(400).json({ message: "Workout not found" });
       } else {
         res.status(200).json(sessions);
       }
@@ -89,12 +89,12 @@ const SessionsController = {
     try {
       const sessions = await Sessions.findOneAndUpdate(
         { _id: req.params.sessionId },
-        { $pull: { resistance: { resistanceId: req.params.resistanceId } } },
+        { $pull: { workout: { workoutId: req.params.workoutId } } },
         { runValidators: true, new: true }
       );
 
       if (!sessions) {
-        res.status(400).json({ message: "Thought not found" });
+        res.status(400).json({ message: "Workout not found" });
       } else {
         res.status(200).json(sessions);
       }
