@@ -6,24 +6,24 @@ const {
   createSession,
   deleteSession,
   updateSessionById,
-  createReaction,
+  createWorkout,
   deleteWorkout,
 } = require("../../controllers/sessions-controller");
 
-// Routes for viewing and creating thoughts
+// Routes for viewing and creating sessions
 router.route("/").get(getAllSessions).post(createSession);
 
-// Routes to view, modify, or delete a thought
+// Routes to view, modify, or delete a session
 router
   .route("/:sessionId")
   .get(getSessionById)
   .put(updateSessionById)
   .delete(deleteSession);
 
-// Route for creating reaction
-router.route("/:sessionId/resistance").post(createReaction);
+// Route for creating workouts
+router.route("/:sessionId/workout").post(createWorkout);
 
-// Route to delete reaction
-router.route("/:sessionId/resistance/:resistanceId").delete(deleteWorkout);
+// Route to delete workouts
+router.route("/:sessionId/workout/:workoutId").delete(deleteWorkout);
 
 module.exports = router;

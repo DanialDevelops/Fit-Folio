@@ -26,7 +26,7 @@ const SessionsController = {
     }
   },
 
-  // Creates a new thought
+  // Creates a new session
   async createSession(req, res) {
     try {
       const sessions = await Sessions.create(req.body);
@@ -36,7 +36,7 @@ const SessionsController = {
     }
   },
 
-  // Deletes a thought by its ID
+  // Deletes a session by its ID
   async deleteSession(req, res) {
     try {
       const sessions = await Sessions.findByIdAndDelete({
@@ -48,7 +48,7 @@ const SessionsController = {
     }
   },
 
-  // Updates a thought by its ID
+  // Updates a session by its ID
   async updateSessionById(req, res) {
     try {
       const sessions = await Sessions.findByIdAndUpdate(
@@ -66,12 +66,12 @@ const SessionsController = {
     }
   },
 
-  // Creates a new reaction for a thought
-  async createReaction(req, res) {
+  // Creates a new workout for a session
+  async createWorkout(req, res) {
     try {
       const sessions = await Sessions.findOneAndUpdate(
         { _id: req.params.sessionId },
-        { $addToSet: { resistance: req.body } },
+        { $addToSet: { workout: req.body } },
         { runValidators: true, new: true }
       );
       if (!sessions) {
@@ -84,12 +84,12 @@ const SessionsController = {
     }
   },
 
-  // Deletes a reaction from a thought
+  // Deletes a workout from a session
   async deleteWorkout(req, res) {
     try {
       const sessions = await Sessions.findOneAndUpdate(
         { _id: req.params.sessionId },
-        { $pull: { resistance: { resistanceId: req.params.resistanceId } } },
+        { $pull: { workout: { workoutId: req.params.workoutId } } },
         { runValidators: true, new: true }
       );
 
