@@ -10,6 +10,21 @@ const workoutSchema = new Schema(
       required: true,
       maxLength: 280,
     },
+    repBody: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
+    restTime: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
+    setBody: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
     username: {
       type: String,
       required: true,
