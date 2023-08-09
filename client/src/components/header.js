@@ -3,7 +3,7 @@ import { Navbar, Nav } from "react-bootstrap";
 // cant use <a> in react, instead, use <link> from react router dom
 import { Link, useLocation } from "react-router-dom";
 import Auth from "../utils/auth";
-import logo from "./assets/logo.png";
+import logo from "../assets/logo.png";
 
 export default function Header() {
   const loggedIn = Auth.loggedIn();
