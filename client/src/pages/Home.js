@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Auth from "../utils/auth";
 import Container from "react-bootstrap/Container";
 import Header from "../components/header";
+import ExerciseCard from "../components/Exercise.js"; // Import the ExerciseCard component
 
 export default function Home() {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ export default function Home() {
           step at a time. Join FitFolio now and witness the transformation
           firsthand!
         </p>
+        <ExerciseCard />
         {loggedIn ? (
           <button className="home-btn" onClick={() => navigate("/exercise")}>
             Add Exercise
