@@ -14,10 +14,6 @@ const sessionsSchema = new Schema(
       default: Date.now,
       get: (timestamp) => new Date(timestamp).toLocaleDateString(),
     },
-    username: {
-      type: String,
-      required: true,
-    },
     workout: [workoutSchema],
   },
   {

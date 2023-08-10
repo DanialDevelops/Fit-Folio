@@ -11,7 +11,8 @@ const {
 } = require("../../controllers/sessions-controller");
 
 // Routes for viewing and creating sessions
-router.route("/").get(getAllSessions).post(createSession);
+router.route("/").get(getAllSessions);
+router.route("/:userId").post(createSession);
 
 // Routes to view, modify, or delete a session
 router

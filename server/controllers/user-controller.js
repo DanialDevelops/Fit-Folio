@@ -1,6 +1,6 @@
 const { User } = require("../models");
-const { signToken } = require('../utils/auth');
-const bcrypt = require('bcrypt');
+const { signToken } = require("../utils/auth");
+const bcrypt = require("bcrypt");
 
 const UserController = {
   // Retrieves all users from the database

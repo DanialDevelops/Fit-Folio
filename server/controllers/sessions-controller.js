@@ -1,4 +1,4 @@
-const { Sessions, User, Reaction } = require("../models");
+const { Sessions, User } = require("../models");
 const { Types } = require("mongoose");
 
 const SessionsController = {
@@ -30,7 +30,12 @@ const SessionsController = {
   async createSession(req, res) {
     try {
       const sessions = await Sessions.create(req.body);
-      res.status(200).json(sessions);
+      const user = await User.findOneAndUpdate(
+        { _id: req.params.userId },
+        { $addToSet: { sessions: sessions } },
+        { new: true }
+      );
+      res.status(200).json(user);
     } catch (err) {
       res.status(500).json(err);
     }
