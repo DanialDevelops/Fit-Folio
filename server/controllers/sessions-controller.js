@@ -1,4 +1,4 @@
-const { Sessions, User, Reaction } = require("../models");
+const { Sessions, User } = require("../models");
 const { Types } = require("mongoose");
 
 const SessionsController = {
