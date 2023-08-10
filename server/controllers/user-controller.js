@@ -1,5 +1,5 @@
 const { User } = require("../models");
-const { signToken } = require('../utils/auth');
+const { signToken, comparePasswords } = require('../utils/auth');
 const bcrypt = require('bcrypt');
 
 const UserController = {
@@ -34,6 +34,34 @@ const UserController = {
       .then((userData) => {
         const token = signToken(userData); // Use the signToken function to generate the token
         res.json({ user: userData, token });
+      })
+      .catch((err) => res.status(500).json(err));
+  },
+
+  // Logs a user in
+  loginUser(req, res) {
+    const { email, password } = req.body;
+
+    User.findOne({ email })
+      .then((userData) => {
+        if (!userData) {
+          return res.status(401).json({ message: "Invalid email or password" });
+        }
+
+        // Compare the provided password with the stored hashed password
+        comparePasswords(password, userData.password)
+          .then((isMatch) => {
+            if (!isMatch) {
+              return res
+                .status(401)
+                .json({ message: "Invalid email or password" });
+            }
+
+            // Password is correct, generate and send an authentication token
+            const token = signToken(userData);
+            res.json({ user: userData, token });
+          })
+          .catch((err) => res.status(500).json(err));
       })
       .catch((err) => res.status(500).json(err));
   },

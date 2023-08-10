@@ -4,6 +4,7 @@ const {
   getAllUsers,
   getUserById,
   createUser,
+  loginUser,
   updateUserById,
   deleteUserById,
   addFriend,
@@ -12,6 +13,9 @@ const {
 
 // Routes to view or create users
 router.route("/").get(getAllUsers).post(createUser);
+
+// Route to log in user
+router.route("/login").post(loginUser);
 
 // Routes to view, update, or delete a user
 router
