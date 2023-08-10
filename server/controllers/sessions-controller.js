@@ -12,6 +12,19 @@ const SessionsController = {
     }
   },
 
+  async getAllSessionsbyUser(req, res) {
+    try {
+      const user = await User.findOne({ _id: req.params.userId });
+      if (!user) {
+        res.status(404).json({ message: "User not found" });
+      } else {
+        res.status(200).json(user);
+      }
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
+
   // Retrieves a single thought by its ID
   async getSessionById(req, res) {
     try {
