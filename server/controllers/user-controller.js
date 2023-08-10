@@ -1,4 +1,6 @@
 const { User } = require("../models");
+const { signToken } = require('../utils/auth');
+const bcrypt = require('bcrypt');
 
 const UserController = {
   // Retrieves all users from the database
@@ -16,9 +18,23 @@ const UserController = {
   },
 
   // Creates a new user
+  // createUser(req, res) {
+  //   User.create(req.body)
+  //     .then((userData) => res.json(userData))
+  //     .catch((err) => res.status(500).json(err));
+  // },
   createUser(req, res) {
-    User.create(req.body)
-      .then((userData) => res.json(userData))
+    const { username, email, password } = req.body;
+
+    bcrypt
+      .hash(password, 10)
+      .then((hashedPassword) => {
+        return User.create({ username, email, password: hashedPassword });
+      })
+      .then((userData) => {
+        const token = signToken(userData); // Use the signToken function to generate the token
+        res.json({ user: userData, token });
+      })
       .catch((err) => res.status(500).json(err));
   },
 
