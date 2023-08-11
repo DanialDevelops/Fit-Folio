@@ -150,6 +150,9 @@ code {
 /* --------------------------------- sign up and login page starts here-------------------------------- */
 
 /* --------------------------------- history page starts here ---------------------------------   */
+.history {
+  background-image: url("./assets/history.jpeg");
+}
 .title {
   margin: 30px auto 20px auto;
   font-weight: 900;
