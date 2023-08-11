@@ -5,25 +5,41 @@ const workoutSchema = new Schema(
       type: Schema.Types.ObjectId,
       default: () => new Types.ObjectId(),
     },
-    workoutBody: {
+    workoutType: {
       type: String,
       required: true,
-      maxLength: 280,
     },
-    repBody: {
+    workoutName: {
+      type: String,
+      required: true,
+    },
+    distance: {
       type: Number,
       required: false,
-      default: 0,
+    },
+    duration: {
+      type: String,
+      required: false,
+    },
+    date: {
+      type: Date,
+      required: false,
+    },
+    sets: {
+      type: Number,
+      required: false,
+    },
+    reps: {
+      type: Number,
+      required: false,
     },
     restTime: {
-      type: Number,
+      type: String,
       required: false,
-      default: 0,
     },
-    setBody: {
-      type: Number,
+    weight: {
+      type: String,
       required: false,
-      default: 0,
     },
     username: {
       type: String,
