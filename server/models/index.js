@@ -1,4 +1,9 @@
 const User = require("./User");
-const Session = require("./Session");
+const Workout = require("./Workout");
+const Sessions = require("./Sessions");
 
-module.exports = { User, Session };
+module.exports = {
+  User,
+  Workout,
+  Sessions,
+};
