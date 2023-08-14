@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "../assets/ExerciseCard.css";
-import Workout from "../../../server/models/Workout";
 
 const ExerciseCard = () => {
   const [workoutName, setWorkoutName] = useState("");
@@ -35,23 +34,12 @@ const ExerciseCard = () => {
       date,
     };
 
-    const cardioWorkout = new Workout(newCardioExercise);
+    setCardioExercises([...cardioExercises, newCardioExercise]);
 
-    cardioWorkout
-      .save()
-      .then((savedWorkout) => {
-        console.log("Cardio workout saved:", savedWorkout);
-        setCardioExercises([...cardioExercises, newCardioExercise]);
-
-        setWorkoutName("");
-        setDistance("");
-        setDuration("");
-        setDate("");
-      })
-      .catch((error) => {
-        console.error("Error saving cardio workout:", error);
-        // Handle error
-      });
+    setWorkoutName("");
+    setDistance("");
+    setDuration("");
+    setDate("");
   };
 
   const [sets, setSets] = useState("");
@@ -86,23 +74,12 @@ const ExerciseCard = () => {
       weight,
     };
 
-    const weightWorkout = new Workout(newWeightExercise);
+    setWeightExercises([...weightExercises, newWeightExercise]);
 
-    weightWorkout
-      .save()
-      .then((savedWorkout) => {
-        console.log("Weight workout saved:", savedWorkout);
-
-        setWeightExercises([...weightExercises, newWeightExercise]);
-        setSets("");
-        setReps("");
-        setRestTime("");
-        setWeight("");
-      })
-      .catch((error) => {
-        console.error("Error saving weight workout:", error);
-        // Handle error
-      });
+    setSets("");
+    setReps("");
+    setRestTime("");
+    setWeight("");
   };
 
   return (
