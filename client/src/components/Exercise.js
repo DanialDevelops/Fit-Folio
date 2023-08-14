@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import '../assets/ExerciseCard.css'
-import Workout from '../server/models/Workout';
+import React, { useState } from "react";
+import "../assets/ExerciseCard.css";
+import Workout from "../server/models/Workout";
 
 const ExerciseCard = () => {
-  const [workoutName, setWorkoutName] = useState('');
-  const [distance, setDistance] = useState('');
-  const [duration, setDuration] = useState('');
-  const [date, setDate] = useState('');
+  const [workoutName, setWorkoutName] = useState("");
+  const [distance, setDistance] = useState("");
+  const [duration, setDuration] = useState("");
+  const [date, setDate] = useState("");
 
   const handleWorkoutNameChange = (event) => {
     setWorkoutName(event.target.value);
@@ -28,38 +28,36 @@ const ExerciseCard = () => {
 
   const handleAddCardioClick = () => {
     const newCardioExercise = {
-      workoutType: 'Cardio',
+      workoutType: "Cardio",
       workoutName,
       distance,
       duration,
       date,
     };
-    
+
     const cardioWorkout = new Workout(newCardioExercise);
 
-    cardioWorkout.save()
-    .then(savedWorkout => {
-      console.log('Cardio workout saved:', savedWorkout);
-      setCardioExercises([...cardioExercises, newCardioExercise]);
+    cardioWorkout
+      .save()
+      .then((savedWorkout) => {
+        console.log("Cardio workout saved:", savedWorkout);
+        setCardioExercises([...cardioExercises, newCardioExercise]);
 
-      setWorkoutName('');
-      setDistance('');
-      setDuration('');
-      setDate('');
-    })
-    .catch(error => {
-      console.error('Error saving cardio workout:', error);
-      // Handle error
-    });
-
-
-   
+        setWorkoutName("");
+        setDistance("");
+        setDuration("");
+        setDate("");
+      })
+      .catch((error) => {
+        console.error("Error saving cardio workout:", error);
+        // Handle error
+      });
   };
 
-  const [sets, setSets] = useState('');
-  const [reps, setReps] = useState('');
-  const [restTime, setRestTime] = useState('');
-  const [weight, setWeight] = useState('');
+  const [sets, setSets] = useState("");
+  const [reps, setReps] = useState("");
+  const [restTime, setRestTime] = useState("");
+  const [weight, setWeight] = useState("");
 
   const handleSetsChange = (event) => {
     setSets(event.target.value);
@@ -81,7 +79,7 @@ const ExerciseCard = () => {
 
   const handleAddWeightClick = () => {
     const newWeightExercise = {
-      workoutType: 'Weight',
+      workoutType: "Weight",
       sets,
       reps,
       restTime,
@@ -90,20 +88,21 @@ const ExerciseCard = () => {
 
     const weightWorkout = new Workout(newWeightExercise);
 
-    weightWorkout.save()
-    .then(savedWorkout => {
-      console.log('Weight workout saved:', savedWorkout);
-      
-      setWeightExercises([...weightExercises, newWeightExercise]);
-      setSets('');
-      setReps('');
-      setRestTime('');
-      setWeight('');
-    })
-    .catch(error => {
-      console.error('Error saving weight workout:', error);
-      // Handle error
-    });
+    weightWorkout
+      .save()
+      .then((savedWorkout) => {
+        console.log("Weight workout saved:", savedWorkout);
+
+        setWeightExercises([...weightExercises, newWeightExercise]);
+        setSets("");
+        setReps("");
+        setRestTime("");
+        setWeight("");
+      })
+      .catch((error) => {
+        console.error("Error saving weight workout:", error);
+        // Handle error
+      });
   };
 
   return (
@@ -128,19 +127,11 @@ const ExerciseCard = () => {
         </div>
         <div className="input-group">
           <label>Duration:</label>
-          <input
-            type="text"
-            value={duration}
-            onChange={handleDurationChange}
-          />
+          <input type="text" value={duration} onChange={handleDurationChange} />
         </div>
         <div className="input-group">
           <label>Date:</label>
-          <input
-            type="date"
-            value={date}
-            onChange={handleDateChange}
-          />
+          <input type="date" value={date} onChange={handleDateChange} />
         </div>
         <button onClick={handleAddCardioClick}>Add Cardio Workout</button>
         <div className="added-exercises">
@@ -148,46 +139,31 @@ const ExerciseCard = () => {
           <ul>
             {cardioExercises.map((exercise, index) => (
               <li key={index}>
-                {exercise.workoutName} - Distance: {exercise.distance} miles, Duration: {exercise.duration}, Date: {exercise.date}
+                {exercise.workoutName} - Distance: {exercise.distance} miles,
+                Duration: {exercise.duration}, Date: {exercise.date}
               </li>
             ))}
           </ul>
         </div>
       </div>
-  
+
       <div className="weight-section">
         <h2>Weight Workout Card</h2>
         <div className="input-group">
           <label>Sets:</label>
-          <input
-            type="number"
-            value={sets}
-            onChange={handleSetsChange}
-          />
+          <input type="number" value={sets} onChange={handleSetsChange} />
         </div>
         <div className="input-group">
           <label>Reps:</label>
-          <input
-            type="number"
-            value={reps}
-            onChange={handleRepsChange}
-          />
+          <input type="number" value={reps} onChange={handleRepsChange} />
         </div>
         <div className="input-group">
           <label>Rest Time:</label>
-          <input
-            type="text"
-            value={restTime}
-            onChange={handleRestTimeChange}
-          />
+          <input type="text" value={restTime} onChange={handleRestTimeChange} />
         </div>
         <div className="input-group">
           <label>Weight:</label>
-          <input
-            type="text"
-            value={weight}
-            onChange={handleWeightChange}
-          />
+          <input type="text" value={weight} onChange={handleWeightChange} />
         </div>
         <button onClick={handleAddWeightClick}>Add Weight Workout</button>
         <div className="added-exercises">
@@ -195,7 +171,8 @@ const ExerciseCard = () => {
           <ul>
             {weightExercises.map((exercise, index) => (
               <li key={index}>
-                Sets: {exercise.sets}, Reps: {exercise.reps}, Rest Time: {exercise.restTime}, Weight: {exercise.weight}
+                Sets: {exercise.sets}, Reps: {exercise.reps}, Rest Time:{" "}
+                {exercise.restTime}, Weight: {exercise.weight}
               </li>
             ))}
           </ul>
