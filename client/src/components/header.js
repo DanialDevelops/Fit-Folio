@@ -47,6 +47,9 @@ export default function Header() {
               <Nav.Link as={Link} to="/history" eventKey="2">
                 History
               </Nav.Link>
+              <Nav.Link as={Link} to="/donate" eventKey="3">
+                Donate
+              </Nav.Link>
               <Nav.Link onClick={Auth.logout}>Logout </Nav.Link>
             </Nav>
           </Navbar.Collapse>
