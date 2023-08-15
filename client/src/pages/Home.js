@@ -13,9 +13,10 @@ export default function Home() {
     <div className="homepage">
       <Header />
       <Container className="home d-flex flex-column align-items-center justify-content-center flex-wrap text-center">
-        <h1 className="home-title">Your Fitness Folio, Redefined</h1>
+        <h1 className="home-title">Your Fitness Portfolio</h1>
         <p className="home-text">
-          Experience effortless and enjoyable exercise tracking with FitFolio.
+          Experience effortless and enjoyable exercise tracking with FitFolio.{" "}
+          <br />
           Embrace a healthier lifestyle, unlock your potential, and achieve your
           fitness goals. Join us now for a transformative fitness journey!
         </p>
