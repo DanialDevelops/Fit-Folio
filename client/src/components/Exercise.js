@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../assets/ExerciseCard.css";
+import "../index.css";
 
 const ExerciseCard = () => {
   const [workoutName, setWorkoutName] = useState("");
