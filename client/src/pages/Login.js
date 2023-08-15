@@ -1,18 +1,12 @@
 import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
-// import { loginUser } from "../utils/API";
+import { loginUser } from "../utils/API";
 import Auth from "../utils/auth";
 import Header from "../components/header";
 
-import { useMutation } from '@apollo/client';
-// ************************************************
-// import { LOGIN_USER } from '../utils/mutations';
-
-export default function Login(props) {
+export default function Login() {
   const [formState, setFormState] = useState({ email: "", password: "" });
   const [showAlert, setShowAlert] = useState(false);
-  const [login, { error, data }] = useMutation(LOGIN_USER);
-
 
   const loggedIn = Auth.loggedIn();
 
@@ -26,23 +20,31 @@ export default function Login(props) {
     });
   };
 
+  // submit form
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(formState);
+
+    // check the response
     try {
-      const { data } = await login({
-        variables: { ...formState },
-      });
-  
-      Auth.login(data.login.token);
-    } catch (e) {
-      console.error(e);
+      const response = await loginUser(formState);
+
+      if (!response.ok) {
+        throw new Error("something went wrong");
+      }
+
+      // use authentication function
+      const { token, user } = await response.json();
+      Auth.login(token);
+      console.log(user);
+    } catch (err) {
+      console.error(err);
+      setShowAlert(true);
     }
-  
+
     // clear form values
     setFormState({
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     });
   };
 
