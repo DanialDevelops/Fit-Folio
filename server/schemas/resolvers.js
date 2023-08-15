@@ -36,38 +36,42 @@ const resolvers = {
       return { token, user };
     },
 
-    addCardioWorkout: async (_, { userId, workoutData }, context) => {
+    addCardioWorkout: async (_, { workoutName, distance, date }, context) => {
       if (context.user) {
         const cardioWorkout = await CardioWorkout.create({
-          user: userId,
-          ...workoutData,
-        });
+        user: context.user._id, // Use context.user._id instead of userId
+        workoutName,
+        distance,
+        date,
+      });
 
-        await User.findByIdAndUpdate(userId, {
-          $push: { cardioWorkouts: cardioWorkout._id },
-        });
+      await User.findByIdAndUpdate(context.user._id, {
+        $push: { cardioWorkouts: cardioWorkout._id },
+      });
 
-        return cardioWorkout;
-      }
-      throw new AuthenticationError("You need to be logged in!");
-    },
-
-    addWeightWorkout: async (_, { userId, workoutData }, context) => {
-      if (context.user) {
-        const weightWorkout = await WeightWorkout.create({
-          user: userId,
-          ...workoutData,
-        });
-
-        await User.findByIdAndUpdate(userId, {
-          $push: { weightWorkouts: weightWorkout._id },
-        });
-
-        return weightWorkout;
-      }
-      throw new AuthenticationError("You need to be logged in!");
-    },
+      return cardioWorkout;
+    }
+    throw new AuthenticationError("You need to be logged in!");
   },
+
+  addWeightWorkout: async (_, { sets, reps, weight }, context) => {
+    if (context.user) {
+      const weightWorkout = await WeightWorkout.create({
+        user: context.user._id, // Use context.user._id instead of userId
+        sets,
+        reps,
+        weight,
+      });
+
+      await User.findByIdAndUpdate(context.user._id, {
+        $push: { weightWorkouts: weightWorkout._id },
+      });
+
+      return weightWorkout;
+    }
+    throw new AuthenticationError("You need to be logged in!");
+  },
+},
   User: {
     cardioWorkouts: async (parent) => {
       const user = await User.findById(parent._id).populate("cardioWorkouts");

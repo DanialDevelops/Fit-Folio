@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useMutation } from "@apollo/client";
+import { ADD_CARDIO_WORKOUT, ADD_WEIGHT_WORKOUT } from "../../server/schema/typeDefs.js";
 import "../index.css";
 
 const ExerciseCard = () => {
@@ -6,6 +8,12 @@ const ExerciseCard = () => {
   const [distance, setDistance] = useState("");
   const [duration, setDuration] = useState("");
   const [date, setDate] = useState("");
+  const [sets, setSets] = useState("");
+  const [reps, setReps] = useState("");
+  const [restTime, setRestTime] = useState("");
+  const [weight, setWeight] = useState("");
+  const [cardioExercises, setCardioExercises] = useState([]);
+  const [weightExercises, setWeightExercises] = useState([]);
 
   const handleWorkoutNameChange = (event) => {
     setWorkoutName(event.target.value);
@@ -23,30 +31,6 @@ const ExerciseCard = () => {
     setDate(event.target.value);
   };
 
-  const [cardioExercises, setCardioExercises] = useState([]);
-
-  const handleAddCardioClick = () => {
-    const newCardioExercise = {
-      workoutType: "Cardio",
-      workoutName,
-      distance,
-      duration,
-      date,
-    };
-
-    setCardioExercises([...cardioExercises, newCardioExercise]);
-
-    setWorkoutName("");
-    setDistance("");
-    setDuration("");
-    setDate("");
-  };
-
-  const [sets, setSets] = useState("");
-  const [reps, setReps] = useState("");
-  const [restTime, setRestTime] = useState("");
-  const [weight, setWeight] = useState("");
-
   const handleSetsChange = (event) => {
     setSets(event.target.value);
   };
@@ -63,7 +47,35 @@ const ExerciseCard = () => {
     setWeight(event.target.value);
   };
 
-  const [weightExercises, setWeightExercises] = useState([]);
+  const [addCardioWorkout] = useMutation(ADD_CARDIO_WORKOUT);
+  const [addWeightWorkout] = useMutation(ADD_WEIGHT_WORKOUT);
+
+  const handleAddCardioClick = () => {
+    const newCardioExercise = {
+      workoutType: "Cardio",
+      workoutName,
+      distance,
+      duration,
+      date,
+    };
+
+    addCardioWorkout({
+      variables: {
+        userId: "YOUR_USER_ID", // Replace with actual user ID
+        workoutData: newCardioExercise,
+      },
+    }).then((result) => {
+      const addedCardioExercise = result.data.addCardioWorkout;
+
+      setCardioExercises([...cardioExercises, addedCardioExercise]);
+  
+      
+      setWorkoutName("");
+      setDistance("");
+      setDuration("");
+      setDate("");
+    });
+  };
 
   const handleAddWeightClick = () => {
     const newWeightExercise = {
@@ -74,12 +86,21 @@ const ExerciseCard = () => {
       weight,
     };
 
-    setWeightExercises([...weightExercises, newWeightExercise]);
+    addWeightWorkout({
+      variables: {
+        userId: "YOUR_USER_ID", // Replace with actual user ID
+        workoutData: newWeightExercise,
+      },
+    }).then((result) => {
+      const addedWeightExercise = result.data.addWeightWorkout;
+
+    setWeightExercises([...weightExercises, addedWeightExercise]);
 
     setSets("");
     setReps("");
     setRestTime("");
     setWeight("");
+    });
   };
 
   return (
@@ -123,7 +144,7 @@ const ExerciseCard = () => {
           </ul>
         </div>
       </div>
-
+  
       <div className="weight-section">
         <h2>Weight Workout Card</h2>
         <div className="input-group">
@@ -157,6 +178,5 @@ const ExerciseCard = () => {
       </div>
     </div>
   );
-};
-
-export default ExerciseCard;
+ };
+  export default ExerciseCard;
