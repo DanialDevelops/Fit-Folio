@@ -32,7 +32,6 @@ export default function Header() {
               src={logo}
               className="logo-icon"
             />
-            FitFolio
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse
@@ -40,7 +39,6 @@ export default function Header() {
             className="justify-content-end"
           >
             <Nav>
-              {/* use eventKey to show navbar style from react bootstrap */}
               <Nav.Link as={Link} to="/exercise" eventKey="1">
                 Exercise
               </Nav.Link>
@@ -50,7 +48,7 @@ export default function Header() {
               <Nav.Link as={Link} to="/donate" eventKey="3">
                 Donate
               </Nav.Link>
-              <Nav.Link onClick={Auth.logout}>Logout </Nav.Link>
+              <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </>
@@ -67,7 +65,6 @@ export default function Header() {
             src={logo}
             className="logo-icon"
           />
-          FitFolio
         </Navbar.Brand>
       )}
     </Navbar>
