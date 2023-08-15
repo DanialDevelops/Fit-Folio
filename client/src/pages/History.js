@@ -5,7 +5,7 @@ import Auth from "../utils/auth";
 import { formatDate } from "../utils/dateFormat";
 import Header from "../components/header";
 import exerciseIcon from "../assets/exercise-logo.png";
-import resistanceIcon from "../assets/images/resistance.png";
+import resistanceIcon from "../assets/gym2.jpeg";
 
 export default function History() {
   const [userData, setUserData] = useState({});

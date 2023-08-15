@@ -238,3 +238,62 @@ code {
   font-weight: bold;
 }
 /* --------------------------------- history page ends here ---------------------------------   */
+
+/* --------------------------------- donation page starts here ---------------------------------   */
+
+.donationPage {
+  text-align: center;
+  padding: 50px;
+}
+
+.heroImage {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.donationHeading {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.handPoint {
+  font-size: 36px;
+  color: var(--main-color);
+  margin-bottom: 20px;
+}
+
+/* Styling for the DonateButton component  */
+.donationButton {
+  background-color: var(--main-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.donationButton:hover {
+  background-color: #9cd326;
+}
+
+/* Success Header */
+.successHeader {
+  font-size: 4rem;
+  color: #ecb2f3;
+  text-shadow: 0.5px 0 6px black;
+  text-align: center;
+}
+
+/* Success Donation Container */
+.successDonation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #bbcdda;
+  height: 100vh;
+}
+
+/* --------------------------------- donation page ends here ---------------------------------   */
