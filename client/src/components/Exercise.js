@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../assets/ExerciseCard.css";
+import "../../../server/schemas/typeDefs"
 
 const ExerciseCard = () => {
   const [workoutName, setWorkoutName] = useState("");
