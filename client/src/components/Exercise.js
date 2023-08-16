@@ -3,7 +3,7 @@ import { useMutation } from "@apollo/client";
 import { ADD_CARDIO_WORKOUT, ADD_WEIGHT_WORKOUT } from "../utils/mutations.js";
 import "../index.css";
 
-const ExerciseCard = () => {
+const ExerciseCard = ({ userId }) => {
   const [workoutName, setWorkoutName] = useState("");
   const [distance, setDistance] = useState("");
   const [duration, setDuration] = useState("");
@@ -47,10 +47,10 @@ const ExerciseCard = () => {
     setWeight(event.target.value);
   };
 
-  const [addCardioWorkout] = useMutation(ADD_CARDIOWORKOUT);
-  const [addWeightWorkout] = useMutation(ADD_WEIGHTWORKOUT);
+  const [addCardioWorkout] = useMutation(ADD_CARDIO_WORKOUT);
+  const [addWeightWorkout] = useMutation(ADD_WEIGHT_WORKOUT);
 
-  const handleAddCardioClick = () => {
+  const handleAddCardioClick = async () => {
     const newCardioExercise = {
       workoutType: "Cardio",
       workoutName,
@@ -59,25 +59,28 @@ const ExerciseCard = () => {
       date,
     };
 
-    addCardioWorkout({
-      variables: {
-        userId: "YOUR_USER_ID", // Replace with actual user ID
-        workoutData: newCardioExercise,
-      },
-    }).then((result) => {
+    try {
+      const result = await addCardioWorkout({
+        variables: {
+          userId: userId,
+          workoutData: newCardioExercise,
+        },
+      });
+      
       const addedCardioExercise = result.data.addCardioWorkout;
 
       setCardioExercises([...cardioExercises, addedCardioExercise]);
-  
-      
+
       setWorkoutName("");
       setDistance("");
       setDuration("");
       setDate("");
-    });
+    } catch (error) {
+      console.error("Error adding cardio workout:", error);
+    }
   };
 
-  const handleAddWeightClick = () => {
+  const handleAddWeightClick = async () => {
     const newWeightExercise = {
       workoutType: "Weight",
       sets,
@@ -86,21 +89,25 @@ const ExerciseCard = () => {
       weight,
     };
 
-    addWeightWorkout({
-      variables: {
-        userId: "YOUR_USER_ID", // Replace with actual user ID
-        workoutData: newWeightExercise,
-      },
-    }).then((result) => {
+    try {
+      const result = await addWeightWorkout({
+        variables: {
+          userId: userId,
+          workoutData: newWeightExercise,
+        },
+      });
+
       const addedWeightExercise = result.data.addWeightWorkout;
 
-    setWeightExercises([...weightExercises, addedWeightExercise]);
+      setWeightExercises([...weightExercises, addedWeightExercise]);
 
-    setSets("");
-    setReps("");
-    setRestTime("");
-    setWeight("");
-    });
+      setSets("");
+      setReps("");
+      setRestTime("");
+      setWeight("");
+    } catch (error) {
+      console.error("Error adding weight workout:", error);
+    }
   };
 
   return (

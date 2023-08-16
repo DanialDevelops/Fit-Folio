@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Navigate, Link } from "react-router-dom";
+import { useQuery } from "@apollo/client";
 import { QUERY_ME } from "../utils/queries";
 import Auth from "../utils/auth";
 import { formatDate } from "../utils/dateFormat";
@@ -8,54 +9,45 @@ import exerciseIcon from "../assets/exercise-logo.png";
 import resistanceIcon from "../assets/gym2.jpeg";
 
 export default function History() {
-  const [userData, setUserData] = useState({});
   const [exerciseData, setExerciseData] = useState([]);
   const [displayedItems, setDisplayedItems] = useState(6);
 
   const loggedIn = Auth.loggedIn();
   let currentDate;
 
-  // everytime loggedIn/userdata changes, the getuserdata runs
-  useEffect(() => {
-    const getUserData = async () => {
-      try {
-        //get token
-        const token = loggedIn ? Auth.getToken() : null;
-        if (!token) return false;
+  // Use the useQuery hook
+  const { loading, error, data } = useQuery(QUERY_ME);
 
-        const response = await getMe(token);
+  // Handle loading and error states
+  if (loading) {
+    return <p>Loading...</p>;
+  }
 
-        if (!response.ok) {
-          throw new Error("something went wrong!");
-        }
+  if (error) {
+    console.error(error);
+    return <p>An error occurred.</p>;
+  }
 
-        const user = await response.json();
+  const user = data.me;
 
-        // combine cardio and resistance data together
-        if (user.cardio && user.resistance) {
-          const cardio = user.cardio;
-          const resistance = user.resistance;
-          const exercise = cardio.concat(resistance);
+  // Combine cardio and resistance data together
+  if (user.cardio && user.resistance) {
+    const cardio = user.cardio;
+    const resistance = user.resistance;
+    const exercise = cardio.concat(resistance);
 
-          // sort exercise data by date
-          exercise.sort((a, b) => {
-            return new Date(b.date) - new Date(a.date);
-          });
+    // Sort exercise data by date
+    exercise.sort((a, b) => {
+      return new Date(b.date) - new Date(a.date);
+    });
 
-          //format date in exercise data
-          exercise.forEach((item) => {
-            item.date = formatDate(item.date);
-          });
+    // Format date in exercise data
+    exercise.forEach((item) => {
+      item.date = formatDate(item.date);
+    });
 
-          setUserData(user);
-          setExerciseData(exercise);
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    getUserData();
-  }, [loggedIn, userData]);
+    setExerciseData(exercise);
+  }
 
   function showMoreItems() {
     setDisplayedItems(displayedItems + 6);
