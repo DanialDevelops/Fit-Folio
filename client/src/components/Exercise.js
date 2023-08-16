@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { ADD_CARDIO_WORKOUT, ADD_WEIGHT_WORKOUT } from "../../server/schema/typeDefs.js";
-import "../index.css";
+import { ADD_CARDIOWORKOUT, ADD_WEIGHTWORKOUT } from "../utils/mutations"
 
 const ExerciseCard = () => {
   const [workoutName, setWorkoutName] = useState("");
@@ -47,8 +46,8 @@ const ExerciseCard = () => {
     setWeight(event.target.value);
   };
 
-  const [addCardioWorkout] = useMutation(ADD_CARDIO_WORKOUT);
-  const [addWeightWorkout] = useMutation(ADD_WEIGHT_WORKOUT);
+  const [addCardioWorkout] = useMutation(ADD_CARDIOWORKOUT);
+  const [addWeightWorkout] = useMutation(ADD_WEIGHTWORKOUT);
 
   const handleAddCardioClick = () => {
     const newCardioExercise = {

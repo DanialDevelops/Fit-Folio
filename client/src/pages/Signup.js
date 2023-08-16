@@ -5,7 +5,7 @@ import Auth from "../utils/auth";
 import Header from "../components/header";
 
 import { useMutation } from '@apollo/client';
-import { ADD_PROFILE } from '../../../server/schemas';
+import { ADD_USER } from '../utils/mutations';
 
 export default function Signup() {
   const loggedIn = Auth.loggedIn();
@@ -16,7 +16,7 @@ export default function Signup() {
     email: "",
     password: "",
   });
-  const [addProfile, { error, data }] = useMutation(ADD_PROFILE);
+  const [addProfile, { error, data }] = useMutation(ADD_USER);
 
   // set state for alert
   const [showAlert, setShowAlert] = useState(false);
