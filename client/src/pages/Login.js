@@ -5,7 +5,7 @@ import Auth from "../utils/auth";
 import Header from "../components/header";
 
 import { useMutation } from '@apollo/client';
-import { LOGIN_USER } from '../../../server/schemas';
+import { LOGIN_USER } from '../utils/mutations';
 
 export default function Login(props) {
   const [formState, setFormState] = useState({ email: "", password: "" });
