@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
-import { createUser } from "../utils/API";
+// import { createUser } from "../utils/API";
 import Auth from "../utils/auth";
 import Header from "../components/header";
+
+import { useMutation } from '@apollo/client';
+import { ADD_PROFILE } from '../../../server/schemas';
 
 export default function Signup() {
   const loggedIn = Auth.loggedIn();
@@ -13,6 +16,7 @@ export default function Signup() {
     email: "",
     password: "",
   });
+  const [addProfile, { error, data }] = useMutation(ADD_PROFILE);
 
   // set state for alert
   const [showAlert, setShowAlert] = useState(false);
@@ -30,24 +34,16 @@ export default function Signup() {
   // submit form
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    console.log(formState);
 
-    // use try/catch to handle errors
     try {
-      // create new users
-      const response = await createUser(formState);
+      const { data } = await addProfile({
+        variables: { ...formState },
+      });
 
-      // check the response
-      if (!response.ok) {
-        throw new Error("something went wrong!");
-      }
-
-      // get token and user data from server
-      const { token } = await response.json();
-      // use authenticaiton functionality
-      Auth.login(token);
-    } catch (err) {
-      console.error(err);
-      setShowAlert(true);
+      Auth.login(data.addProfile.token);
+    } catch (e) {
+      console.error(e);
     }
   };
 
