@@ -1,7 +1,17 @@
+// import React, { useState, useEffect } from "react";
+// import { Navigate, Link } from "react-router-dom";
+// //this needs to be changed 
+// import { QUERY_ME } from "../utils/queries";
+// import Auth from "../utils/auth";
+// import { formatDate } from "../utils/dateFormat";
+// import Header from "../components/header";
+// import exerciseIcon from "../assets/exercise-logo.png";
+// import resistanceIcon from "../assets/gym2.jpeg";
+
 import React, { useState, useEffect } from "react";
 import { Navigate, Link } from "react-router-dom";
-//this needs to be changed 
-import { QUERY_ME } from "../utils/API";
+import { useQuery } from "@apollo/client"; // Import the useQuery hook
+import { QUERY_ME } from "../utils/queries";
 import Auth from "../utils/auth";
 import { formatDate } from "../utils/dateFormat";
 import Header from "../components/header";
@@ -9,54 +19,27 @@ import exerciseIcon from "../assets/exercise-logo.png";
 import resistanceIcon from "../assets/gym2.jpeg";
 
 export default function History() {
-  const [userData, setUserData] = useState({});
   const [exerciseData, setExerciseData] = useState([]);
   const [displayedItems, setDisplayedItems] = useState(6);
-
   const loggedIn = Auth.loggedIn();
   let currentDate;
 
-  // everytime loggedIn/userdata changes, the getuserdata runs
+  // Use the useQuery hook to fetch user data
+  const { loading, error, data } = useQuery(QUERY_ME);
+
   useEffect(() => {
-    const getUserData = async () => {
-      try {
-        //get token
-        const token = loggedIn ? Auth.getToken() : null;
-        if (!token) return false;
+    if (!loading && !error) {
+      const user = data.me; // Access the user data from the GraphQL response
 
-        const response = await getMe(token);
+      const exercise = user.cardioWorkouts.concat(user.weightWorkouts);
+      exercise.sort((a, b) => new Date(b.date) - new Date(a.date));
+      exercise.forEach((item) => {
+        item.date = formatDate(item.date);
+      });
 
-        if (!response.ok) {
-          throw new Error("something went wrong!");
-        }
-
-        const user = await response.json();
-
-        // combine cardio and resistance data together
-        if (user.cardio && user.resistance) {
-          const cardio = user.cardio;
-          const resistance = user.resistance;
-          const exercise = cardio.concat(resistance);
-
-          // sort exercise data by date
-          exercise.sort((a, b) => {
-            return new Date(b.date) - new Date(a.date);
-          });
-
-          //format date in exercise data
-          exercise.forEach((item) => {
-            item.date = formatDate(item.date);
-          });
-
-          setUserData(user);
-          setExerciseData(exercise);
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    getUserData();
-  }, [loggedIn, userData]);
+      setExerciseData(exercise);
+    }
+  }, [loading, error]);
 
   function showMoreItems() {
     setDisplayedItems(displayedItems + 6);
