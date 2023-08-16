@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { ADD_CARDIOWORKOUT, ADD_WEIGHTWORKOUT } from "../utils/mutations"
+import { ADD_CARDIO_WORKOUT, ADD_WEIGHT_WORKOUT } from "../utils/mutations.js";
+import "../index.css";
 
 const ExerciseCard = () => {
   const [workoutName, setWorkoutName] = useState("");
