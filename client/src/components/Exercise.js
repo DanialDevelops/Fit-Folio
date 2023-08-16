@@ -47,8 +47,8 @@ const ExerciseCard = () => {
     setWeight(event.target.value);
   };
 
-  const [addCardioWorkout] = useMutation(ADD_CARDIO_WORKOUT);
-  const [addWeightWorkout] = useMutation(ADD_WEIGHT_WORKOUT);
+  const [addCardioWorkout] = useMutation(ADD_CARDIOWORKOUT);
+  const [addWeightWorkout] = useMutation(ADD_WEIGHTWORKOUT);
 
   const handleAddCardioClick = () => {
     const newCardioExercise = {
