@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Navigate, Link } from "react-router-dom";
-import { QUERY_ME } from "../utils/queries";
+//this needs to be changed 
+import { QUERY_ME } from "../utils/API";
 import Auth from "../utils/auth";
 import { formatDate } from "../utils/dateFormat";
 import Header from "../components/header";
