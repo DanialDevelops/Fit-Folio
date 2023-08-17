@@ -19,16 +19,10 @@ const userSchema = new Schema({
     required: true,
     minlength: 5,
   },
-  cardioWorkouts: [
+  sessions: [
     {
       type: Schema.Types.ObjectId,
-      ref: "CardioWorkout",
-    },
-  ],
-  weightWorkouts: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "WeightWorkout",
+      ref: "Session",
     },
   ],
 });

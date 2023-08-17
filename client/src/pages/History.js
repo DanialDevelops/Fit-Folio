@@ -1,16 +1,8 @@
-// import React, { useState, useEffect } from "react";
-// import { Navigate, Link } from "react-router-dom";
-// //this needs to be changed 
-// import { QUERY_ME } from "../utils/queries";
-// import Auth from "../utils/auth";
-// import { formatDate } from "../utils/dateFormat";
-// import Header from "../components/header";
-// import exerciseIcon from "../assets/exercise-logo.png";
-// import resistanceIcon from "../assets/gym2.jpeg";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Navigate, Link } from "react-router-dom";
-import { useQuery } from "@apollo/client"; // Import the useQuery hook
+import { useQuery } from "@apollo/client";
+
 import { QUERY_ME } from "../utils/queries";
 import Auth from "../utils/auth";
 import { formatDate } from "../utils/dateFormat";
@@ -23,23 +15,40 @@ export default function History() {
   const [displayedItems, setDisplayedItems] = useState(6);
   const loggedIn = Auth.loggedIn();
   let currentDate;
-
-  // Use the useQuery hook to fetch user data
+  
+  // Use the useQuery hook
   const { loading, error, data } = useQuery(QUERY_ME);
 
-  useEffect(() => {
-    if (!loading && !error) {
-      const user = data.me; // Access the user data from the GraphQL response
+  // Handle loading and error states
+  if (loading) {
+    return <p>Loading...</p>;
+  }
 
-      const exercise = user.cardioWorkouts.concat(user.weightWorkouts);
-      exercise.sort((a, b) => new Date(b.date) - new Date(a.date));
-      exercise.forEach((item) => {
-        item.date = formatDate(item.date);
-      });
+  if (error) {
+    console.error(error);
+    return <p>An error occurred.</p>;
+  }
 
-      setExerciseData(exercise);
-    }
-  }, [loading, error]);
+  const user = data.me;
+
+  // Combine cardio and resistance data together
+  if (user.cardio && user.resistance) {
+    const cardio = user.cardio;
+    const resistance = user.resistance;
+    const exercise = cardio.concat(resistance);
+
+    // Sort exercise data by date
+    exercise.sort((a, b) => {
+      return new Date(b.date) - new Date(a.date);
+    });
+
+    // Format date in exercise data
+    exercise.forEach((item) => {
+      item.date = formatDate(item.date);
+    });
+
+    setExerciseData(exercise);
+  }
 
   function showMoreItems() {
     setDisplayedItems(displayedItems + 6);
