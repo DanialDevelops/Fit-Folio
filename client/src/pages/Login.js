@@ -4,14 +4,13 @@ import { Link, Navigate } from "react-router-dom";
 import Auth from "../utils/auth";
 import Header from "../components/header";
 
-import { useMutation } from '@apollo/client';
-import { LOGIN_USER } from '../utils/mutations';
+import { useMutation } from "@apollo/client";
+import { LOGIN_USER } from "../utils/mutations";
 
 export default function Login(props) {
   const [formState, setFormState] = useState({ email: "", password: "" });
   const [showAlert, setShowAlert] = useState(false);
   const [login, { error, data }] = useMutation(LOGIN_USER);
-
 
   const loggedIn = Auth.loggedIn();
 
@@ -32,23 +31,25 @@ export default function Login(props) {
       const { data } = await login({
         variables: { ...formState },
       });
-  
-      Auth.login(data.login.token);
+
+      console.log("Response data:", data);
+
+      if (data.login && data.login.token) {
+        Auth.login(data.login.token);
+      } else {
+        console.log("Login failed:", data.login && data.login.message);
+        setShowAlert(true);
+      }
     } catch (e) {
-      console.error(e);
+      console.error("Error:", e);
     }
-  
+
     // clear form values
     setFormState({
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     });
   };
-
-  // If the user is logged in, redirect to the home page
-  if (loggedIn) {
-    return <Navigate to="/" />;
-  }
 
   return (
     <div className="signup d-flex flex-column align-items-center justify-content-center text-center">

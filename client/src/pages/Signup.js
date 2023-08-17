@@ -1,22 +1,21 @@
 import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
-// import { createUser } from "../utils/API";
 import Auth from "../utils/auth";
 import Header from "../components/header";
 
-import { useMutation } from '@apollo/client';
-import { ADD_USER } from '../utils/mutations';
+import { useMutation } from "@apollo/client";
+import { ADD_USER } from "../utils/mutations";
 
 export default function Signup() {
   const loggedIn = Auth.loggedIn();
 
-  // set up the orginal state of the form
+  // set up the original state of the form
   const [formState, setFormState] = useState({
     username: "",
     email: "",
     password: "",
   });
-  const [addProfile, { error, data }] = useMutation(ADD_USER);
+  const [addUser, { error, data }] = useMutation(ADD_USER);
 
   // set state for alert
   const [showAlert, setShowAlert] = useState(false);
@@ -34,14 +33,13 @@ export default function Signup() {
   // submit form
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(formState);
 
     try {
-      const { data } = await addProfile({
+      const { data } = await addUser({
         variables: { ...formState },
       });
 
-      Auth.login(data.addProfile.token);
+      Auth.login(data.addUser.token);
     } catch (e) {
       console.error(e);
     }
@@ -66,7 +64,7 @@ export default function Signup() {
           value={formState.username}
           placeholder="Your username"
           name="username"
-          type="username"
+          type="text"
           onChange={handleChange}
         />
 
