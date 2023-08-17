@@ -44,7 +44,12 @@ Users can set specific fitness goals, such as increasing weight lifted or reps f
 Notifications or reminders are sent to users when they achieve their fitness goals.</br>
 
 The following photos shows how the application looks:
-![Alt text](Link)
+![Homepage](./client/src/assets/screenshot1.png)
+![Login](./client/src/assets/screenshot2.png)
+![Signup](./client/src/assets/screenshot3.png)
+![Workout](./client/src/assets/screenshot4.png)
+![Profile](./client/src/assets/screenshot5.png)
+![Homepage](./client/src/assets/screenshot6.png)
 
 ## Technologies Used
 
@@ -71,7 +76,7 @@ npm install
 Once the dependencies are installed,
 
 ```
-npm start
+npm run develop
 ```
 
 By following these steps, you can run the project locally and have full control over its functionality.
