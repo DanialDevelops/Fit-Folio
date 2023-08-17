@@ -1,20 +1,14 @@
 import React, { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
-// import { loginUser } from "../utils/API";
-import Auth from "../utils/auth";
-import Header from "../components/header";
-
+import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/mutations";
 
-export default function Login(props) {
+import Auth from "../utils/auth";
+
+const Login = () => {
   const [formState, setFormState] = useState({ email: "", password: "" });
-  const [showAlert, setShowAlert] = useState(false);
   const [login, { error, data }] = useMutation(LOGIN_USER);
 
-  const loggedIn = Auth.loggedIn();
-
-  // update state based on form input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
 
@@ -26,25 +20,17 @@ export default function Login(props) {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(formState);
+
     try {
       const { data } = await login({
         variables: { ...formState },
       });
 
-      console.log("Response data:", data);
-
-      if (data.login && data.login.token) {
-        Auth.login(data.login.token);
-      } else {
-        console.log("Login failed:", data.login && data.login.message);
-        setShowAlert(true);
-      }
+      Auth.login(data.login.token);
     } catch (e) {
-      console.error("Error:", e);
+      console.error(e);
     }
 
-    // clear form values
     setFormState({
       email: "",
       password: "",
@@ -52,49 +38,58 @@ export default function Login(props) {
   };
 
   return (
-    <div className="signup d-flex flex-column align-items-center justify-content-center text-center">
-      <Header />
-      <form
-        onSubmit={handleFormSubmit}
-        className="signup-form d-flex flex-column"
-      >
-        {/* --------------------email-------------------- */}
-        <label htmlFor="email">Email</label>
-        <input
-          className="form-input"
-          value={formState.email}
-          placeholder="youremail@gmail.com"
-          name="email"
-          type="email"
-          onChange={handleChange}
-        />
+    <main className="flex-row justify-center mb-4">
+      <div className="col-12 col-lg-6">
+        <div className="card">
+          <h4 className="card-header bg-dark text-light p-2 text-center">
+            LOG IN
+          </h4>
+          <div className="card-body">
+            {data ? (
+              <p className="text-success text-center">
+                Success! You may now head{" "}
+                <Link to="/" className="text-primary">
+                  back to the homepage.
+                </Link>
+              </p>
+            ) : (
+              <form onSubmit={handleFormSubmit}>
+                <input
+                  className="form-input mb-3"
+                  placeholder="Your email"
+                  name="email"
+                  type="email"
+                  value={formState.email}
+                  onChange={handleChange}
+                />
+                <input
+                  className="form-input mb-3"
+                  placeholder="******"
+                  name="password"
+                  type="password"
+                  value={formState.password}
+                  onChange={handleChange}
+                />
+                <button
+                  className="btn btn-block btn-primary"
+                  style={{ cursor: "pointer" }}
+                  type="submit"
+                >
+                  LOG IN
+                </button>
+              </form>
+            )}
 
-        {/* -------------------- password-------------------- */}
-        <label htmlFor="password">Password</label>
-        <input
-          className="form-input"
-          value={formState.password}
-          placeholder="********"
-          name="password"
-          type="password"
-          onChange={handleChange}
-        />
-
-        {/* --------------------login btn-------------------- */}
-        <div className="btn-div">
-          <button
-            disabled={!(formState.email && formState.password)}
-            className="signup-btn mx-auto my-auto"
-          >
-            Login
-          </button>
+            {error && (
+              <div className="my-3 p-3 bg-danger text-white text-center">
+                {error.message}
+              </div>
+            )}
+          </div>
         </div>
-        {/* --------------------signup link-------------------- */}
-        <p className="link-btn">
-          New to Fit Folio? <Link to="/signup">Create one</Link>
-        </p>
-        {showAlert && <div className="err-message">Login failed</div>}
-      </form>
-    </div>
+      </div>
+    </main>
   );
-}
+};
+
+export default Login;

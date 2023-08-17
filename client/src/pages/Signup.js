@@ -1,15 +1,10 @@
 import React, { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
-import Auth from "../utils/auth";
-import Header from "../components/header";
-
+import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../utils/mutations";
+import Auth from "../utils/auth";
 
-export default function Signup() {
-  const loggedIn = Auth.loggedIn();
-
-  // set up the original state of the form
+const Signup = () => {
   const [formState, setFormState] = useState({
     username: "",
     email: "",
@@ -17,10 +12,6 @@ export default function Signup() {
   });
   const [addUser, { error, data }] = useMutation(ADD_USER);
 
-  // set state for alert
-  const [showAlert, setShowAlert] = useState(false);
-
-  // update state based on form input
   const handleChange = (event) => {
     const { name, value } = event.target;
 
@@ -30,7 +21,6 @@ export default function Signup() {
     });
   };
 
-  // submit form
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
@@ -45,69 +35,67 @@ export default function Signup() {
     }
   };
 
-  // If the user is logged in, redirect to the home page
-  if (loggedIn) {
-    return <Navigate to="/" />;
-  }
-
   return (
-    <div className="signup d-flex flex-column align-items-center justify-content-center text-center">
-      <Header />
-      <form
-        onSubmit={handleFormSubmit}
-        className="signup-form d-flex flex-column"
-      >
-        {/* --------------------username-------------------- */}
-        <label htmlFor="username">Username</label>
-        <input
-          className="form-input"
-          value={formState.username}
-          placeholder="Your username"
-          name="username"
-          type="text"
-          onChange={handleChange}
-        />
+    <main className="flex-row justify-center mb-4">
+      <div className="col-12 col-lg-6">
+        <div className="card">
+          <h4 className="card-header bg-dark text-light p-2 text-center">
+            SIGN UP
+          </h4>
+          <div className="card-body">
+            {data ? (
+              <p className="text-success text-center">
+                Success! You may now head{" "}
+                <Link to="/" className="text-primary">
+                  back to the homepage.
+                </Link>
+              </p>
+            ) : (
+              <form onSubmit={handleFormSubmit}>
+                <input
+                  className="form-input mb-3"
+                  placeholder="Your username"
+                  name="username"
+                  type="text"
+                  value={formState.username}
+                  onChange={handleChange}
+                />
+                <input
+                  className="form-input mb-3"
+                  placeholder="Your email"
+                  name="email"
+                  type="email"
+                  value={formState.email}
+                  onChange={handleChange}
+                />
+                <input
+                  className="form-input mb-3"
+                  placeholder="******"
+                  name="password"
+                  type="password"
+                  value={formState.password}
+                  onChange={handleChange}
+                />
+                <button
+                  className="btn btn-block btn-primary"
+                  style={{ cursor: "pointer" }}
+                  type="submit"
+                >
+                  SIGN UP
+                </button>
+              </form>
+            )}
 
-        {/* --------------------email-------------------- */}
-        <label htmlFor="email">Email</label>
-        <input
-          className="form-input"
-          value={formState.email}
-          placeholder="youremail@gmail.com"
-          name="email"
-          type="email"
-          onChange={handleChange}
-        />
-
-        {/* -------------------- password-------------------- */}
-        <label htmlFor="password">Password</label>
-        <input
-          className="form-input"
-          value={formState.password}
-          placeholder="********"
-          name="password"
-          type="password"
-          onChange={handleChange}
-        />
-
-        {/* --------------------sign up btn-------------------- */}
-        <div className="btn-div">
-          <button
-            disabled={
-              !(formState.username && formState.email && formState.password)
-            }
-            className="signup-btn mx-auto my-auto"
-          >
-            Sign Up
-          </button>
+            {error && (
+              <div className="my-3 p-3 bg-danger text-white text-center">
+                {error.message}
+              </div>
+            )}
+          </div>
         </div>
-
-        {/* --------------------login link-------------------- */}
-        <p className="link-btn">
-          Already have an account? <Link to="/login">Log in</Link>
-        </p>
-        {showAlert && <div className="err-message">Signup failed</div>}
-      </form>
-    </div>
+      </div>
+    </main>
   );
-}
+};
+
+export default Signup;
