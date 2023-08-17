@@ -14,7 +14,7 @@ Fit Folio is a comprehensive MERN (MongoDB, Express.js, React.js, Node.js) stack
 
 ## Application
 
-Open the [deployed Heroku link](Link) using your preferred browser.</br>
+Open the [deployed Heroku link](https://sleepy-river-53246-ad1ab7c5de71.herokuapp.com/) using your preferred browser.</br>
 
 The Fit Folio app provides users with the following features:</br>
 
@@ -49,7 +49,6 @@ The following photos shows how the application looks:
 ![Signup](./client/src/assets/screenshot3.png)
 ![Workout](./client/src/assets/screenshot4.png)
 ![Profile](./client/src/assets/screenshot5.png)
-![Homepage](./client/src/assets/screenshot6.png)
 
 ## Technologies Used
 
@@ -64,7 +63,7 @@ Bootstrap: CSS framework for responsive and stylish UI design.</br>
 
 ## Installation
 
--To access the project without any installation, simply visit the [deployed Heroku link](Link)
+-To access the project without any installation, simply visit the [deployed Heroku link](https://sleepy-river-53246-ad1ab7c5de71.herokuapp.com/)
 
 -To run the Book Search Engine on your local machine, follow these steps:
 Start with installing the dependencies:
@@ -83,7 +82,7 @@ By following these steps, you can run the project locally and have full control 
 
 ## Usage
 
-Access the [deployed Heroku link](link) using your preferred browser.</br>
+Access the [deployed Heroku link](https://sleepy-river-53246-ad1ab7c5de71.herokuapp.com/) using your preferred browser.</br>
 
 Open your web browser and navigate to `http://localhost:3000.`</br>
 Register a new account using a valid email and password.</br>
