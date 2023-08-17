@@ -1,6 +1,8 @@
+
 import React, { useState } from "react";
 import { Navigate, Link } from "react-router-dom";
 import { useQuery } from "@apollo/client";
+
 import { QUERY_ME } from "../utils/queries";
 import Auth from "../utils/auth";
 import { formatDate } from "../utils/dateFormat";
@@ -11,10 +13,9 @@ import resistanceIcon from "../assets/gym2.jpeg";
 export default function History() {
   const [exerciseData, setExerciseData] = useState([]);
   const [displayedItems, setDisplayedItems] = useState(6);
-
   const loggedIn = Auth.loggedIn();
   let currentDate;
-
+  
   // Use the useQuery hook
   const { loading, error, data } = useQuery(QUERY_ME);
 

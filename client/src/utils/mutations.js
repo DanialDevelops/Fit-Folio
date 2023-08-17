@@ -24,7 +24,7 @@ export const ADD_USER = gql`
   }
 `;
 
-export const ADD_WEIGHT_WORKOUT = gql`
+export const ADD_WEIGHTWORKOUT = gql`
   mutation addWeightWorkout(
     $sets: String!
     $reps: String!
@@ -39,7 +39,7 @@ export const ADD_WEIGHT_WORKOUT = gql`
   }
 `;
 
-export const ADD_CARDIO_WORKOUT = gql`
+export const ADD_CARDIOWORKOUT = gql`
   mutation addCardioWorkout(
     $workoutName: String!
     $distance: String!
