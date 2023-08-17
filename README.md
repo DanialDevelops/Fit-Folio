@@ -45,7 +45,7 @@ Notifications or reminders are sent to users when they achieve their fitness goa
 
 The following photos shows how the application looks:
 ![Homepage](./client/src/assets/screenshot1.png)
-![Login](./client/src/assets/screenshot2.png)
+![Login](./client/src/assets/screeshot2.png)
 ![Signup](./client/src/assets/screenshot3.png)
 ![Workout](./client/src/assets/screenshot4.png)
 ![Profile](./client/src/assets/screenshot5.png)
